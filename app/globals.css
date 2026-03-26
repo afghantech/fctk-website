@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-omsu-blue: #003087;
+  --color-omsu-blue-dark: #001f57;
+  --color-omsu-blue-soft: #eaf0fb;
+  --color-omsu-white: #ffffff;
+  --font-sans: var(--font-roboto), system-ui, sans-serif;
+}
+
+:root {
+  --omsu-blue: #003087;
+  --omsu-blue-dark: #001f57;
+  --omsu-blue-soft: #eaf0fb;
+  --omsu-white: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--omsu-white);
+  color: #0f172a;
+}
+
+::selection {
+  background: var(--omsu-blue);
+  color: var(--omsu-white);
+}
