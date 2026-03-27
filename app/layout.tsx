@@ -1,22 +1,53 @@
-import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
-import "./globals.css";
-import { Header } from "@/components/Header/Header";
-import { Footer } from "@/components/Footer/Footer";
-import { UIProvider } from "@/components/providers/ui-context";
+import type { Metadata } from 'next';
+import { Roboto } from 'next/font/google';
+import './globals.css'
+import { Header } from '@/components/Header/Header';
+import { Footer } from '@/components/Footer/Footer';
 
 const roboto = Roboto({
-  variable: "--font-roboto",
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "700"],
+  subsets: ['latin', 'cyrillic'],
+  weight: ['300', '400', '500', '700', '900'],
+  variable: '--font-roboto',
 });
 
+const siteUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : 'http://localhost:3000';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "ФЦТМК ОмГУ",
-    template: "%s | ФЦТМК ОмГУ",
+    default: 'Факультет ЦТМК — ОмГУ',
+    template: '%s | ФЦТМК ОмГУ',
   },
-  description: "Официальный сайт факультета цифровых технологий, математики и кибербезопасности ОмГУ.",
+  description:
+    'Официальный сайт факультета ЦТМК ОмГУ: направления обучения, новости, наука, контакты и информация для абитуриентов.',
+  openGraph: {
+    type: 'website',
+    locale: 'ru_RU',
+    siteName: 'ФЦТМК ОмГУ',
+    title: 'Факультет ЦТМК — ОмГУ',
+    description:
+      'Официальный сайт факультета ЦТМК ОмГУ: направления обучения, новости, наука, контакты и информация для абитуриентов.',
+    images: [
+      {
+        url: '/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'ФЦТМК ОмГУ',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Факультет ФЦТМК — ОмГУ',
+    description:
+      'Официальный сайт факультета ЦТМК ОмГУ: направления обучения, новости, наука, контакты и информация для абитуриентов.',
+    images: ['/og-image.svg'],
+  },
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
@@ -25,15 +56,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" suppressHydrationWarning>
-      <body className={`${roboto.variable} font-sans antialiased`}>
-        <UIProvider>
-          <div className="min-h-screen bg-white text-slate-900">
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </div>
-        </UIProvider>
+    <html lang="ru">
+      <body className={`${roboto.variable} font-sans`}>
+        <Header />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
