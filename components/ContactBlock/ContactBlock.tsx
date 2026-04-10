@@ -21,7 +21,7 @@ export function ContactBlock() {
         <Link
           href={contactInfo.mapHref}
           target="_blank"
-          className="inline-flex rounded-2xl bg-omsu-blue px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-omsu-blue-dark"
+          className="inline-flex rounded-2xl bg-omsu-Blue px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-omsu-Blue-Dark"
         >
           Открыть карту
         </Link>

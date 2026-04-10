@@ -22,13 +22,13 @@ function HeaderShell() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-3" onClick={closeMenu}>
           <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-omsu-blue text-lg font-bold text-white shadow-soft">
-            ФЦТМК
+            
           </span>
           <span className="flex flex-col leading-tight">
             <span className="text-sm font-bold uppercase tracking-[0.18em] text-omsu-blue">
               ОмГУ
             </span>
-            <span className="text-sm text-slate-600">Факультет ЦТМК</span>
+            <span className="text-sm text-slate-600">ФАКУЛЬТЕТ ЦИФРОВЫХ ТЕХНОЛОГИЙ, МАТЕМАТИКИ И КИБЕРБЕЗОПАСНОСТИ</span>
           </span>
         </Link>
 

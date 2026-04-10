@@ -57,9 +57,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${roboto.variable} font-sans`}>
+      <body className={`${roboto.variable} font-sans min-h-screen flex flex-col`}>
         <Header />
-        <main>{children}</main>
+        <main className="grow">{children}</main>
         <Footer />
       </body>
     </html>
