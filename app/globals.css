@@ -2,17 +2,11 @@
 
 @theme {
   --color-omsu-blue: #003087;
-  --color-omsu-blue-dark: #001f57;
-  --color-omsu-blue-soft: #eaf0fb;
-  --color-omsu-white: #ffffff;
-  --font-sans: var(--font-roboto), system-ui, sans-serif;
-}
-
-:root {
-  --omsu-blue: #003087;
-  --omsu-blue-dark: #001f57;
-  --omsu-blue-soft: #eaf0fb;
-  --omsu-white: #ffffff;
+  --color-omsu-blue-dark: #001d52;
+  --color-page: #f5f8ff;
+  --color-surface: #ffffff;
+  --color-muted: #6b7a99;
+  --color-border: #d9e3f5;
 }
 
 html {
@@ -20,11 +14,20 @@ html {
 }
 
 body {
-  background: var(--omsu-white);
+  background: var(--color-page);
   color: #0f172a;
+  font-family: var(--font-roboto), system-ui, sans-serif;
 }
 
 ::selection {
-  background: var(--omsu-blue);
-  color: var(--omsu-white);
+  background: rgba(0, 48, 135, 0.2);
+}
+
+@layer base {
+  body {
+    @apply antialiased bg-page;
+  }
+  a {
+    @apply transition-colors;
+  }
 }
