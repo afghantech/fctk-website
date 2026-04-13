@@ -14,7 +14,7 @@ export function Footer() {
           <p className="font-semibold text-omsu-black">Разделы</p>
           <div className="flex flex-col gap-2">
             <Link href="/academics" className="hover:text-omsu-blue">
-              Направления обучения
+              Обучение
             </Link>
             <Link href="/nauka" className="hover:text-omsu-blue">
               Наука

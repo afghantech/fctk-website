@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import { ContactBlock } from '@/components/ContactBlock/ContactBlock';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Контакты',
   description: 'Адрес, телефон и почта факультета ЦТМК ОмГУ.',
-};
+  path: '/contacts',
+});
 
 export default function ContactsPage() {
   return (

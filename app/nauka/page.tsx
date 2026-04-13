@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Наука',
   description: 'Научные события, проекты, публикации и конференции факультета ЦТМК ОмГУ.',
-};
+  path: '/nauka',
+});
 
 export default function NaukaPage() {
   return (

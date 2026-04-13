@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { ProgramCard } from '@/components/ProgramCard/ProgramCard';
 import { programs } from '@/lib/site-data';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Аспирантура',
   description: 'Программы аспирантуры факультета ЦТМК ОмГУ.',
-};
+  path: '/academics/aspir',
+});
 
 export default function AspirPage() {
   const aspirPrograms = programs.filter((program) => program.category === 'aspir');

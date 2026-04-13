@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { buildPageMetadata } from '@/lib/seo';
 
 type PageProps = {
   params: Promise<{ public: string }>;
@@ -29,20 +30,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { public: publicSlug } = await params;
 
   if (publicSlug === 'conf') {
-    return {
+    return buildPageMetadata({
       title: 'Научные конференции факультета',
       description: 'Перечень научных конференций факультета.',
-    };
+      path: '/nauka/conf',
+    });
   }
 
   if (publicSlug === 'sci_journ') {
-    return {
+    return buildPageMetadata({
       title: 'Научные журналы факультета',
       description: 'Перечень научных журналов факультета и университета.',
-    };
+      path: '/nauka/sci_journ',
+    });
   }
 
-  return { title: 'Страница не найдена' };
+  return buildPageMetadata({
+    title: 'Страница не найдена',
+    description: 'Запрошенная страница раздела науки не найдена.',
+    path: '/nauka',
+  });
 }
 
 export default async function NaukaPublicPage({ params }: PageProps) {

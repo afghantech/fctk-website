@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Обучение',
   description: 'Направления подготовки, программы и учебные треки факультета ЦТМК ОмГУ.',
-};
+  path: '/academics',
+});
 
 export default function AcademicsPage() {
   const sections = [

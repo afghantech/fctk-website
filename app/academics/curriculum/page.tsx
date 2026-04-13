@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Учебные планы',
   description: 'Документы и материалы по образовательным программам факультета ЦТМК ОмГУ.',
-};
+  path: '/academics/curriculum',
+});
 
 export default function CurriculumPage() {
   return (

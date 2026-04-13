@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { ProgramCard } from '@/components/ProgramCard/ProgramCard';
 import { programs } from '@/lib/site-data';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Бакалавриат и специалитет',
   description: 'Программы бакалавриата и специалитета факультета ЦТМК ОмГУ.',
-};
+  path: '/academics/bakalavr',
+});
 
 export default function BakalavrPage() {
   const bakalavrPrograms = programs.filter((program) => program.category === 'bakalavr');

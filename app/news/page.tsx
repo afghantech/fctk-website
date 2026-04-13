@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { newsItems } from '@/lib/site-data';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Новости',
   description: 'Актуальные новости факультета цифровых технологий, математики и кибербезопасности ОмГУ.',
-};
+  path: '/news',
+});
 
 export default function NewsPage() {
   return (
