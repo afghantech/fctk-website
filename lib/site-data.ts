@@ -27,7 +27,7 @@ export const newsItems: NewsItem[] = [
     title: '🤖 Факультет цифровых технологий, математики и кибербезопасности ОмГУ — участник выставочной программы чемпионата по робототехнике «Иннотех».',
     excerpt:
       '',
-    href: '/nauka',
+    href: '/news',
   },
   {
     id: 'news-2',
@@ -35,7 +35,7 @@ export const newsItems: NewsItem[] = [
     title: '🔥 ОмГУ на «Цифровом хакатоне»',
     excerpt:
       '',
-    href: '/nauka',
+    href: '/news',
   },
   {
     id: 'news-3',
@@ -43,7 +43,7 @@ export const newsItems: NewsItem[] = [
     title: '🧑‍💻 В ОмГУ проходит интенсив «В ИТ в ОмГУ»',
     excerpt:
       '',
-    href: '/nauka',
+    href: '/news',
   },
 ];
 

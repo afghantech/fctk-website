@@ -12,12 +12,12 @@ const config = {
         omsu: {
           blue: "var(--color-omsu-blue)",
           blueDark: "var(--color-omsu-blue-dark)",
-          blueSoft: "var(--color-omsu-blue-soft)",
-          white: "var(--color-omsu-white)",
+          black: "var(--color-omsu-black)",
+          gray: "var(--color-omsu-gray)",
         },
       },
       boxShadow: {
-        soft: "0 10px 30px rgba(0, 48, 135, 0.08)",
+        soft: "0 10px 30px rgba(184, 24, 23, 0.14)",
       },
     },
   },

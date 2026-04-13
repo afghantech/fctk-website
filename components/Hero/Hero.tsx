@@ -9,10 +9,10 @@ export function Hero() {
           Факультет ЦТМК ОмГУ
         </span>
         <div className="space-y-4">
-          <h1 className="max-w-2xl text-4xl font-black tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+          <h1 className="max-w-2xl text-4xl font-black tracking-tight text-omsu-black sm:text-5xl lg:text-6xl">
             Технологии, образование и наука в одном месте
           </h1>
-          <p className="max-w-xl text-lg leading-8 text-slate-600">
+          <p className="max-w-xl text-lg leading-8 text-omsu-gray">
             Современные программы обучения, новости факультета, научные события и
             контакты для абитуриентов — всё на одном сайте.
           </p>
@@ -21,7 +21,7 @@ export function Hero() {
 
       <div className="relative overflow-hidden rounded-[2rem] border border-border bg-white p-3 shadow-soft">
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-omsu-blue/20 to-transparent" />
-        <div className="relative overflow-hidden rounded-[1.5rem] bg-slate-100">
+        <div className="relative overflow-hidden rounded-[1.5rem] bg-black/5">
           <Image
             src="/images/campus-hero.png"
             alt="Баннер факультета и корпус ОмГУ"
