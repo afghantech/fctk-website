@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { ProgramCard } from '@/components/ProgramCard/ProgramCard';
 import { programs } from '@/lib/site-data';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Магистратура',
   description: 'Программы магистратуры факультета ЦТМК ОмГУ.',
-};
+  path: '/academics/master',
+});
 
 export default function MasterPage() {
   const masterPrograms = programs.filter((program) => program.category === 'master');

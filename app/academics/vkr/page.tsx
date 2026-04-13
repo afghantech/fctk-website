@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'ВКР',
   description: 'Раздел итоговых выпускных квалификационных работ.',
-};
+  path: '/academics/vkr',
+});
 
 export default function VkrPage() {
   return (

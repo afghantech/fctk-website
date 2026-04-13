@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { programs } from '@/lib/site-data';
+import { buildPageMetadata } from '@/lib/seo';
 
 type PageProps = {
   params: Promise<{ program: string }>;
@@ -12,12 +13,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { program: slug } = await params;
   const program = programs.find((item) => item.category === category && item.slug === slug);
 
-  if (!program) return { title: 'Программа не найдена' };
+  if (!program) {
+    return buildPageMetadata({
+      title: 'Программа не найдена',
+      description: 'Запрошенная образовательная программа не найдена.',
+      path: '/academics/bakalavr',
+    });
+  }
 
-  return {
+  return buildPageMetadata({
     title: `${program.title} (${program.profile})`,
     description: program.description,
-  };
+    path: `/academics/bakalavr/${program.slug}`,
+  });
 }
 
 export default async function BakalavrProgramPage({ params }: PageProps) {

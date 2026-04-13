@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -17,6 +18,22 @@ const navItems = [
 function HeaderShell() {
   const pathname = usePathname();
   const { isOpen, toggleMenu, closeMenu } = useNavigation();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuId = 'mobile-site-navigation';
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeMenu();
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [closeMenu, isOpen]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-surface/95 backdrop-blur">
@@ -27,11 +44,15 @@ function HeaderShell() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Открыть сайт ОмГУ"
-            className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-soft"
+            className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-omsu-blue"
           >
             <Image src="/images/logo-omsu.png" alt="Логотип ОмГУ" width={44} height={44} className="h-11 w-11 object-contain" />
           </Link>
-          <Link href="/" className="flex flex-col leading-tight" onClick={closeMenu}>
+          <Link
+            href="/"
+            className="flex flex-col leading-tight focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-omsu-blue"
+            onClick={closeMenu}
+          >
             <span className="text-sm text-omsu-gray">ФАКУЛЬТЕТ ЦИФРОВЫХ ТЕХНОЛОГИЙ, <br />МАТЕМАТИКИ И КИБЕРБЕЗОПАСНОСТИ</span>
           </Link>
         </div>
@@ -53,6 +74,7 @@ function HeaderShell() {
                 aria-current={active ? 'page' : undefined}
                 className={cn(
                   'rounded-full px-4 py-2 text-sm font-medium',
+                  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-omsu-blue',
                   active
                     ? 'bg-omsu-blue text-white'
                     : 'text-omsu-gray hover:bg-black/5 hover:text-omsu-blue'
@@ -65,11 +87,13 @@ function HeaderShell() {
         </nav>
 
         <button
+          ref={menuButtonRef}
           type="button"
           aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
           aria-expanded={isOpen}
+          aria-controls={mobileMenuId}
           onClick={toggleMenu}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-white text-omsu-blue shadow-sm transition hover:bg-black/5 lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-white text-omsu-blue shadow-sm transition hover:bg-black/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-omsu-blue lg:hidden"
         >
           <span className="sr-only">Меню</span>
           <span className="flex flex-col gap-1.5">
@@ -81,7 +105,7 @@ function HeaderShell() {
       </div>
 
       {isOpen ? (
-        <div className="border-t border-border bg-white lg:hidden">
+        <div id={mobileMenuId} className="border-t border-border bg-white lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 sm:px-6 lg:px-8">
             {navItems.map((item) => {
               const active = item.external
@@ -100,6 +124,7 @@ function HeaderShell() {
                   aria-current={active ? 'page' : undefined}
                   className={cn(
                     'rounded-2xl px-4 py-3 text-sm font-medium',
+                    'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-omsu-blue',
                     active
                       ? 'bg-omsu-blue text-white'
                       : 'bg-black/5 text-omsu-gray hover:bg-black/10 hover:text-omsu-blue'
