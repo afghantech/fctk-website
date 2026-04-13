@@ -1,12 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-omsu-blue: #003087;
-  --color-omsu-blue-dark: #001d52;
-  --color-page: #f5f8ff;
+  --color-omsu-blue: #b81817;
+  --color-omsu-blue-dark: #e74613;
+  --color-omsu-black: #1d1d1b;
+  --color-omsu-gray: #898989;
+  --color-page: #f7f3f2;
   --color-surface: #ffffff;
-  --color-muted: #6b7a99;
-  --color-border: #d9e3f5;
+  --color-muted: #898989;
+  --color-border: #d8c7c2;
 }
 
 html {
@@ -15,12 +17,12 @@ html {
 
 body {
   background: var(--color-page);
-  color: #0f172a;
+  color: var(--color-omsu-black);
   font-family: var(--font-roboto), system-ui, sans-serif;
 }
 
 ::selection {
-  background: rgba(0, 48, 135, 0.2);
+  background: rgba(184, 24, 23, 0.2);
 }
 
 @layer base {
