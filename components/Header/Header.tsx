@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NavigationProvider, useNavigation } from '@/components/Navigation/NavigationContext';
@@ -20,15 +21,20 @@ function HeaderShell() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-surface/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3" onClick={closeMenu}>
-          <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-omsu-blue text-lg font-bold text-white shadow-soft">
-            
-          </span>
-          <span className="flex flex-col leading-tight">
-
-            <span className="text-sm text-slate-600">ФАКУЛЬТЕТ ЦИФРОВЫХ ТЕХНОЛОГИЙ, <br />МАТЕМАТИКИ И КИБЕРБЕЗОПАСНОСТИ</span>
-          </span>
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="https://omsu.ru/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Открыть сайт ОмГУ"
+            className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-soft"
+          >
+            <Image src="/images/logo-omsu.png" alt="Логотип ОмГУ" width={44} height={44} className="h-11 w-11 object-contain" />
+          </Link>
+          <Link href="/" className="flex flex-col leading-tight" onClick={closeMenu}>
+            <span className="text-sm text-omsu-gray">ФАКУЛЬТЕТ ЦИФРОВЫХ ТЕХНОЛОГИЙ, <br />МАТЕМАТИКИ И КИБЕРБЕЗОПАСНОСТИ</span>
+          </Link>
+        </div>
 
         <nav className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => {
@@ -49,7 +55,7 @@ function HeaderShell() {
                   'rounded-full px-4 py-2 text-sm font-medium',
                   active
                     ? 'bg-omsu-blue text-white'
-                    : 'text-slate-700 hover:bg-slate-100 hover:text-omsu-blue'
+                    : 'text-omsu-gray hover:bg-black/5 hover:text-omsu-blue'
                 )}
               >
                 {item.label}
@@ -63,7 +69,7 @@ function HeaderShell() {
           aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
           aria-expanded={isOpen}
           onClick={toggleMenu}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-white text-omsu-blue shadow-sm transition hover:bg-slate-50 lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-border bg-white text-omsu-blue shadow-sm transition hover:bg-black/5 lg:hidden"
         >
           <span className="sr-only">Меню</span>
           <span className="flex flex-col gap-1.5">
@@ -96,7 +102,7 @@ function HeaderShell() {
                     'rounded-2xl px-4 py-3 text-sm font-medium',
                     active
                       ? 'bg-omsu-blue text-white'
-                      : 'bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-omsu-blue'
+                      : 'bg-black/5 text-omsu-gray hover:bg-black/10 hover:text-omsu-blue'
                   )}
                 >
                   {item.label}
