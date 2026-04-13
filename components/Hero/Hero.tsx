@@ -28,6 +28,7 @@ export function Hero() {
             width={960}
             height={720}
             priority
+            sizes="(min-width: 1024px) 42vw, 100vw"
             className="h-auto w-full object-cover"
           />
         </div>
