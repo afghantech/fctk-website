@@ -9,7 +9,7 @@ const navItems = [
   { href: '/', label: 'Главная' },
   { href: '/academics', label: 'Обучение' },
   { href: '/nauka', label: 'Наука' },
-  { href: '/abitur', label: 'Абитуриентам' },
+  { href: 'https://abit.omsu.ru/', label: 'Абитуриентам', external: true },
   { href: '/contacts', label: 'Контакты' },
 ];
 
@@ -25,17 +25,16 @@ function HeaderShell() {
             
           </span>
           <span className="flex flex-col leading-tight">
-            <span className="text-sm font-bold uppercase tracking-[0.18em] text-omsu-blue">
-              ОмГУ
-            </span>
-            <span className="text-sm text-slate-600">ФАКУЛЬТЕТ ЦИФРОВЫХ ТЕХНОЛОГИЙ, МАТЕМАТИКИ И КИБЕРБЕЗОПАСНОСТИ</span>
+
+            <span className="text-sm text-slate-600">ФАКУЛЬТЕТ ЦИФРОВЫХ ТЕХНОЛОГИЙ, <br />МАТЕМАТИКИ И КИБЕРБЕЗОПАСНОСТИ</span>
           </span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => {
-            const active =
-              item.href === '/'
+            const active = item.external
+              ? false
+              : item.href === '/'
                 ? pathname === '/'
                 : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
@@ -43,6 +42,8 @@ function HeaderShell() {
               <Link
                 key={item.href}
                 href={item.href}
+                target={item.external ? '_blank' : undefined}
+                rel={item.external ? 'noopener noreferrer' : undefined}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
                   'rounded-full px-4 py-2 text-sm font-medium',
@@ -77,8 +78,9 @@ function HeaderShell() {
         <div className="border-t border-border bg-white lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 sm:px-6 lg:px-8">
             {navItems.map((item) => {
-              const active =
-                item.href === '/'
+              const active = item.external
+                ? false
+                : item.href === '/'
                   ? pathname === '/'
                   : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
@@ -86,6 +88,8 @@ function HeaderShell() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  target={item.external ? '_blank' : undefined}
+                  rel={item.external ? 'noopener noreferrer' : undefined}
                   onClick={closeMenu}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
