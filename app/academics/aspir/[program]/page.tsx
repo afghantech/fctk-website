@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { programs } from '@/lib/site-data';
+import { getProgramBySlug, getProgramsByCategory } from '@/lib/content';
 import { buildPageMetadata } from '@/lib/seo';
 
 type PageProps = {
@@ -11,7 +11,7 @@ const category = 'aspir';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { program: slug } = await params;
-  const program = programs.find((item) => item.category === category && item.slug === slug);
+  const program = await getProgramBySlug(category, slug);
 
   if (!program) {
     return buildPageMetadata({
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function AspirProgramPage({ params }: PageProps) {
   const { program: slug } = await params;
-  const program = programs.find((item) => item.category === category && item.slug === slug);
+  const program = await getProgramBySlug(category, slug);
 
   if (!program) notFound();
 
@@ -70,17 +70,11 @@ export default async function AspirProgramPage({ params }: PageProps) {
           ))}
         </ul>
       </div>
-
-      <div className="mt-6 rounded-[1.5rem] border border-border bg-white p-6">
-        <h2 className="text-xl font-bold text-slate-950">Профильные предметы</h2>
-        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-          {program.subjects.map((item) => (
-            <li key={item} className="rounded-xl bg-slate-50 px-4 py-3 text-sm text-slate-700">
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
     </section>
   );
+}
+
+export async function generateStaticParams() {
+  const programs = await getProgramsByCategory(category);
+  return programs.map((program) => ({ program: program.slug }));
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { ProgramCard } from '@/components/ProgramCard/ProgramCard';
-import { programs } from '@/lib/site-data';
+import { getProgramsByCategory } from '@/lib/content';
 import { buildPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = buildPageMetadata({
@@ -9,8 +9,8 @@ export const metadata: Metadata = buildPageMetadata({
   path: '/academics/bakalavr',
 });
 
-export default function BakalavrPage() {
-  const bakalavrPrograms = programs.filter((program) => program.category === 'bakalavr');
+export default async function BakalavrPage() {
+  const bakalavrPrograms = await getProgramsByCategory('bakalavr');
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
