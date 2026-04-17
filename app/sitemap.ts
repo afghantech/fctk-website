@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { programs } from '@/lib/site-data';
+import { getAllPrograms } from '@/lib/content';
 import { getSiteUrl } from '@/lib/seo';
 
 const staticRoutes = [
@@ -11,6 +11,7 @@ const staticRoutes = [
   '/academics/curriculum',
   '/academics/vkr',
   '/abitur',
+  '/about',
   '/news',
   '/nauka',
   '/nauka/conf',
@@ -18,9 +19,10 @@ const staticRoutes = [
   '/contacts',
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
   const lastModified = new Date();
+  const programs = await getAllPrograms();
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${siteUrl}${route}`,
