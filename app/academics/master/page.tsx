@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { ProgramCard } from '@/components/ProgramCard/ProgramCard';
-import { programs } from '@/lib/site-data';
+import { getProgramsByCategory } from '@/lib/content';
 import { buildPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = buildPageMetadata({
@@ -9,8 +9,8 @@ export const metadata: Metadata = buildPageMetadata({
   path: '/academics/master',
 });
 
-export default function MasterPage() {
-  const masterPrograms = programs.filter((program) => program.category === 'master');
+export default async function MasterPage() {
+  const masterPrograms = await getProgramsByCategory('master');
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">

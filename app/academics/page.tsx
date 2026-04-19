@@ -34,7 +34,6 @@ export default function AcademicsPage() {
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-omsu-blue">
           Обучение
         </p>
-        <h1 className="mt-2 text-3xl font-bold text-slate-950 sm:text-4xl">Направления обучения</h1>
         <p className="mt-4 text-base leading-7 text-slate-600">
           Выберите уровень подготовки, перейдите к учебным материалам или откройте раздел итоговых
           работ.

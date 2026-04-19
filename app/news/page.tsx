@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { newsItems } from '@/lib/site-data';
+import { getAllNews } from '@/lib/content';
 import { buildPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = buildPageMetadata({
@@ -9,7 +9,9 @@ export const metadata: Metadata = buildPageMetadata({
   path: '/news',
 });
 
-export default function NewsPage() {
+export default async function NewsPage() {
+  const newsItems = await getAllNews();
+
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <div className="mb-8">
@@ -20,13 +22,19 @@ export default function NewsPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {newsItems.map((item) => (
           <article
-            key={item.id}
-            className="rounded-[1.5rem] border border-border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-soft"
+            key={item.slug}
+            className="flex h-full flex-col rounded-[1.5rem] border border-border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-soft"
           >
-            <p className="text-sm font-medium text-omsu-gray">{item.date}</p>
-            <h2 className="mt-3 text-lg font-bold leading-7 text-omsu-black">{item.title}</h2>
-            <p className="mt-3 text-sm leading-6 text-omsu-gray">{item.excerpt}</p>
-            <Link href={item.href} className="mt-5 inline-flex text-sm font-semibold text-omsu-blue">
+            <div>
+              <p className="text-sm font-medium text-omsu-gray">{item.date}</p>
+              <h2 className="mt-3 text-lg font-bold leading-7 text-omsu-black">{item.title}</h2>
+              <p className="mt-3 text-sm leading-6 text-omsu-gray">{item.excerpt}</p>
+            </div>
+            
+            <Link
+              href={item.href}
+              className="mt-auto pt-5 inline-flex text-sm font-semibold text-omsu-blue"
+            >
               Подробнее →
             </Link>
           </article>

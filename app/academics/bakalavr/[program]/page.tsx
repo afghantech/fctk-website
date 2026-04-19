@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { programs } from '@/lib/site-data';
+import { getProgramBySlug, getProgramsByCategory } from '@/lib/content';
 import { buildPageMetadata } from '@/lib/seo';
 
 type PageProps = {
@@ -11,7 +11,7 @@ const category = 'bakalavr';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { program: slug } = await params;
-  const program = programs.find((item) => item.category === category && item.slug === slug);
+  const program = await getProgramBySlug(category, slug);
 
   if (!program) {
     return buildPageMetadata({
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BakalavrProgramPage({ params }: PageProps) {
   const { program: slug } = await params;
-  const program = programs.find((item) => item.category === category && item.slug === slug);
+  const program = await getProgramBySlug(category, slug);
 
   if (!program) notFound();
 
@@ -83,4 +83,9 @@ export default async function BakalavrProgramPage({ params }: PageProps) {
       </div>
     </section>
   );
+}
+
+export async function generateStaticParams() {
+  const programs = await getProgramsByCategory(category);
+  return programs.map((program) => ({ program: program.slug }));
 }

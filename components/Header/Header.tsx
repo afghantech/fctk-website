@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 
 const navItems = [
   { href: '/', label: 'Главная' },
+  { href: '/about', label: 'Факультет' },
   { href: '/academics', label: 'Обучение' },
   { href: '/nauka', label: 'Наука' },
   { href: 'https://abit.omsu.ru/', label: 'Абитуриентам', external: true },
