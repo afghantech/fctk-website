@@ -18,6 +18,7 @@ const config: Config = {
     'lib/**/*.{ts,tsx}',
     '!**/*.d.ts',
   ],
+  testPathIgnorePatterns: ['<rootDir>/e2e/'],
 };
 
 export default createJestConfig(config);
