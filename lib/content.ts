@@ -41,6 +41,26 @@ export type AboutSectionContent = {
   html: string;
 };
 
+export type FacultyStructureEmployee = {
+  fullName: string;
+  position: string;
+  phone: string;
+  email: string;
+  isLeader: boolean;
+  photoSrc?: string;
+};
+
+export type FacultyStructureUnitType = 'deanery' | 'department' | 'center';
+
+export type FacultyStructureUnit = {
+  slug: string;
+  title: string;
+  order: number;
+  published: boolean;
+  unitType: FacultyStructureUnitType;
+  employees: FacultyStructureEmployee[];
+};
+
 const CONTENT_ROOT = path.join(process.cwd(), 'content');
 
 async function markdownToHtml(markdown: string): Promise<string> {
@@ -66,6 +86,36 @@ function normalizeNumber(value: unknown, fallback: number): number {
 
 function normalizeBoolean(value: unknown, fallback = true): boolean {
   return typeof value === 'boolean' ? value : fallback;
+}
+
+function normalizeString(value: unknown, fallback = ''): string {
+  return typeof value === 'string' ? value : fallback;
+}
+
+function normalizeFacultyUnitType(value: unknown): FacultyStructureUnitType {
+  if (value === 'deanery' || value === 'department' || value === 'center') return value;
+  return 'department';
+}
+
+function normalizeEmployees(value: unknown): FacultyStructureEmployee[] {
+  if (!Array.isArray(value)) return [];
+
+  return value
+    .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === 'object')
+    .map((item) => {
+      const isLeader = normalizeBoolean(item.isLeader, false);
+      const photoSrc = normalizeString(item.photoSrc, '');
+
+      return {
+        fullName: normalizeString(item.fullName),
+        position: normalizeString(item.position),
+        phone: normalizeString(item.phone),
+        email: normalizeString(item.email),
+        isLeader,
+        photoSrc: isLeader && photoSrc ? photoSrc : undefined,
+      } satisfies FacultyStructureEmployee;
+    })
+    .filter((employee) => employee.fullName && employee.position);
 }
 
 export async function getAllNews(): Promise<NewsContent[]> {
@@ -145,9 +195,13 @@ export async function getAllPrograms(): Promise<ProgramContent[]> {
 export async function getAboutSections(): Promise<AboutSectionContent[]> {
   const directory = path.join(CONTENT_ROOT, 'about');
   const files = await getMarkdownFiles(directory);
+  const sectionFiles = files.filter((filePath) => {
+    const base = path.basename(filePath);
+    return !(base.startsWith('structure-') && base.endsWith('.md'));
+  });
 
   const sections = await Promise.all(
-    files.map(async (filePath, index) => {
+    sectionFiles.map(async (filePath, index) => {
       const source = await readFile(filePath, 'utf8');
       const { data, content } = matter(source);
       const slug = path.basename(filePath, '.md');
@@ -165,5 +219,36 @@ export async function getAboutSections(): Promise<AboutSectionContent[]> {
 
   return sections
     .filter((item) => item.published)
+    .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title, 'ru'));
+}
+
+export async function getFacultyStructureUnits(): Promise<FacultyStructureUnit[]> {
+  const directory = path.join(CONTENT_ROOT, 'about');
+  const files = await getMarkdownFiles(directory);
+
+  const structureFiles = files.filter((filePath) => {
+    const base = path.basename(filePath);
+    return base.startsWith('structure-') && base.endsWith('.md');
+  });
+
+  const units = await Promise.all(
+    structureFiles.map(async (filePath, index) => {
+      const source = await readFile(filePath, 'utf8');
+      const { data } = matter(source);
+      const slug = path.basename(filePath, '.md');
+
+      return {
+        slug,
+        title: normalizeString(data.title, slug),
+        order: normalizeNumber(data.order, index),
+        published: normalizeBoolean(data.published),
+        unitType: normalizeFacultyUnitType(data.unitType),
+        employees: normalizeEmployees(data.employees),
+      } satisfies FacultyStructureUnit;
+    })
+  );
+
+  return units
+    .filter((unit) => unit.published)
     .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title, 'ru'));
 }
