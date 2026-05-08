@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getAboutSections } from '@/lib/content';
+import { getAboutSections, getFacultyStructureUnits } from '@/lib/content';
 import { buildPageMetadata } from '@/lib/seo';
 import AboutSections from './sections';
 
@@ -13,6 +13,7 @@ export default async function AboutPage() {
   const sections = (await getAboutSections())
     .filter((section) => section.published)
     .sort((a, b) => a.order - b.order);
+  const facultyStructureUnits = await getFacultyStructureUnits();
 
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -25,7 +26,7 @@ export default async function AboutPage() {
         </p>
       </header>
 
-      <AboutSections sections={sections} />
+      <AboutSections sections={sections} facultyStructureUnits={facultyStructureUnits} />
     </main>
   );
 }
