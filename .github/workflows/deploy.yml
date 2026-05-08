@@ -1,4 +1,4 @@
-name: Deploy Next.js (Minimal)
+name: Deploy Next.js
 
 on:
   push:
