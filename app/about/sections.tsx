@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
+import type { FacultyStructureUnit } from '@/lib/content';
+import { FacultyStructureAccordion } from '@/components/FacultyStructure/FacultyStructureAccordion';
 
 type AboutSection = {
   slug: string;
@@ -14,9 +16,10 @@ type AboutSection = {
 
 type Props = {
   sections: AboutSection[];
+  facultyStructureUnits: FacultyStructureUnit[];
 };
 
-export default function AboutSections({ sections }: Props) {
+export default function AboutSections({ sections, facultyStructureUnits }: Props) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
 
   const activeSection = useMemo(
@@ -43,6 +46,7 @@ export default function AboutSections({ sections }: Props) {
         const isHidden = Boolean(activeSlug && !isActive);
         const panelId = `about-panel-${section.slug}`;
         const buttonId = `about-button-${section.slug}`;
+        const isFacultyStructure = section.slug === 'faculty-structure';
 
         if (isHidden) return null;
 
@@ -72,11 +76,11 @@ export default function AboutSections({ sections }: Props) {
                 </span>
 
                 <span
-                aria-hidden="true"
-                className="inline-flex h-9 w-9 flex-none items-center justify-center rounded-full border border-border text-omsu-blue transition-all duration-200"
+                  aria-hidden="true"
+                  className="inline-flex h-9 w-9 flex-none items-center justify-center rounded-full border border-border text-omsu-blue transition-all duration-200"
                 >
                   {isActive ? '✕' : '+'}
-                  </span>
+                </span>
               </button>
             </h2>
 
@@ -91,6 +95,12 @@ export default function AboutSections({ sections }: Props) {
                   className="prose prose-sm max-w-none prose-headings:scroll-mt-24 prose-a:text-omsu-blue prose-a:underline-offset-4 prose-strong:text-omsu-black"
                   dangerouslySetInnerHTML={{ __html: section.html }}
                 />
+
+                {isFacultyStructure ? (
+                  <div className="pt-2">
+                    <FacultyStructureAccordion units={facultyStructureUnits} />
+                  </div>
+                ) : null}
 
                 {section.externalUrl ? (
                   <div className="pt-2">
