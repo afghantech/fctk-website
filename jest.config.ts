@@ -13,12 +13,18 @@ const config: Config = {
   },
   clearMocks: true,
   collectCoverageFrom: [
-    'app/**/*.{ts,tsx}',
     'components/**/*.{ts,tsx}',
     'lib/**/*.{ts,tsx}',
+    'app/about/sections.tsx',
+    '!**/__tests__/**',
     '!**/*.d.ts',
+    '!lib/site-data.ts',
+    '!app/**/page.tsx',
+    '!app/**/layout.tsx',
+    '!app/**/sitemap.ts',
   ],
   testPathIgnorePatterns: ['<rootDir>/e2e/'],
+  modulePathIgnorePatterns: ['<rootDir>/.next/'],
 };
 
 export default createJestConfig(config);

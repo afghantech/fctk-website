@@ -82,7 +82,7 @@ export function FacultyStructureAccordion({ units }: Props) {
                               textIndent: '0px',
                               display: 'inline',
                             }}
-                            className="h-20 w-20 rounded-xl object-cover"
+                            className="h-75 w-75 rounded-xl object-cover"
                             alt={employee.fullName}
                           />
                         ) : null}
@@ -91,14 +91,14 @@ export function FacultyStructureAccordion({ units }: Props) {
                           <p className="m-0 font-semibold text-omsu-black">{employee.fullName}</p>
                           <p className="m-0 text-omsu-gray">{employee.position}</p>
 
-                          <dl className="mt-2 grid gap-x-6 gap-y-1 sm:grid-cols-2">
-                            <div className="flex flex-col">
-                              <dt className="text-xs font-semibold uppercase tracking-wide text-omsu-gray/80">
+                          <dl className="mt-3 flex flex-col gap-4">
+                            <div className="flex min-w-0 flex-col gap-1.5">
+                              <dt className="text-xs font-semibold uppercase leading-4 tracking-wide text-omsu-gray/80">
                                 Телефон
                               </dt>
-                              <dd className="m-0">
+                              <dd className="m-0 min-w-0">
                                 <a
-                                  className="text-omsu-blue underline-offset-4 hover:underline"
+                                  className="inline-block max-w-full break-words leading-relaxed text-omsu-blue underline-offset-4 hover:underline"
                                   href={`tel:${normalizePhone(employee.phone)}`}
                                 >
                                   {employee.phone}
@@ -106,13 +106,13 @@ export function FacultyStructureAccordion({ units }: Props) {
                               </dd>
                             </div>
 
-                            <div className="flex flex-col">
-                              <dt className="text-xs font-semibold uppercase tracking-wide text-omsu-gray/80">
+                            <div className="flex min-w-0 flex-col gap-1.5">
+                              <dt className="text-xs font-semibold uppercase leading-4 tracking-wide text-omsu-gray/80">
                                 Почта
                               </dt>
-                              <dd className="m-0">
+                              <dd className="m-0 min-w-0">
                                 <a
-                                  className="text-omsu-blue underline-offset-4 hover:underline"
+                                  className="inline-block max-w-full break-all leading-relaxed text-omsu-blue underline-offset-4 hover:underline sm:break-words"
                                   href={`mailto:${employee.email}`}
                                 >
                                   {employee.email}

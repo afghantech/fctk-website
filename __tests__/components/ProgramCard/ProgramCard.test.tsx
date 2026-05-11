@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import type { ProgramContent } from '@/lib/content';
-import { ProgramCard } from './ProgramCard';
+import { ProgramCard } from '@/components/ProgramCard/ProgramCard';
 
 jest.mock('next/link', () => ({
   __esModule: true,
