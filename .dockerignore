@@ -1,0 +1,16 @@
+node_modules
+.next
+.git
+.github
+coverage
+playwright-report
+test-results
+.turbo
+*.log
+.env
+.env.*
+!.env.example
+__tests__
+e2e
+README.md
+.editorconfig
