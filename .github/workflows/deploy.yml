@@ -63,6 +63,28 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Validate Cloud.ru registry secrets
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          CLOUDRU_REGISTRY: ${{ secrets.CLOUDRU_REGISTRY }}
+          CLOUDRU_REPOSITORY: ${{ secrets.CLOUDRU_REPOSITORY }}
+          CLOUDRU_KEY_ID: ${{ secrets.CLOUDRU_KEY_ID }}
+          CLOUDRU_KEY_SECRET: ${{ secrets.CLOUDRU_KEY_SECRET }}
+        run: |
+          set -eux
+          missing=0
+          for name in CLOUDRU_REGISTRY CLOUDRU_REPOSITORY CLOUDRU_KEY_ID CLOUDRU_KEY_SECRET; do
+            eval "val=\${$name:-}"
+            if [ -z "$val" ]; then
+              echo "Missing GitHub secret: $name"
+              missing=1
+            fi
+          done
+          if [ "$missing" -ne 0 ]; then
+            echo "Set CLOUDRU_REGISTRY (e.g. my-nextjs-registry.cr.cloud.ru) and CLOUDRU_REPOSITORY (repository / image name without registry)."
+            exit 1
+          fi
+
       - name: Log in to Cloud.ru Artifact Registry
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: docker/login-action@v3
@@ -73,11 +95,13 @@ jobs:
 
       - name: Tag and push to Artifact Registry
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          CLOUDRU_REGISTRY: ${{ secrets.CLOUDRU_REGISTRY }}
+          CLOUDRU_REPOSITORY: ${{ secrets.CLOUDRU_REPOSITORY }}
         run: |
           set -eux
-          docker tag "${LOCAL_IMAGE}:${GITHUB_SHA}" "${CLOUDRU_IMAGE}:${GITHUB_SHA}"
-          docker tag "${LOCAL_IMAGE}:${GITHUB_SHA}" "${CLOUDRU_IMAGE}:latest"
-          docker push "${CLOUDRU_IMAGE}:${GITHUB_SHA}"
-          docker push "${CLOUDRU_IMAGE}:latest"
-        env:
-          CLOUDRU_IMAGE: ${{ secrets.CLOUDRU_IMAGE }}
+          REMOTE_IMAGE="${CLOUDRU_REGISTRY}/${CLOUDRU_REPOSITORY}"
+          docker tag "${LOCAL_IMAGE}:${GITHUB_SHA}" "${REMOTE_IMAGE}:${GITHUB_SHA}"
+          docker tag "${LOCAL_IMAGE}:${GITHUB_SHA}" "${REMOTE_IMAGE}:latest"
+          docker push "${REMOTE_IMAGE}:${GITHUB_SHA}"
+          docker push "${REMOTE_IMAGE}:latest"
