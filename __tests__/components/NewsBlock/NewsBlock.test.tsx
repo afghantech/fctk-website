@@ -1,5 +1,5 @@
-import { render, screen, within } from '@testing-library/react';
-import { NewsBlock } from './NewsBlock';
+import { render, screen } from '@testing-library/react';
+import { NewsBlock } from '@/components/NewsBlock/NewsBlock';
 import { getAllNews } from '@/lib/content';
 
 jest.mock('next/link', () => ({

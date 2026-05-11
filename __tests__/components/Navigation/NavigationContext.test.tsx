@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
-import { NavigationProvider, useNavigation } from './NavigationContext';
+import { NavigationProvider, useNavigation } from '@/components/Navigation/NavigationContext';
 
 function NavigationConsumer() {
   const { isOpen, openMenu, closeMenu, toggleMenu } = useNavigation();
