@@ -8,7 +8,7 @@
 - **React** 19, **TypeScript**
 - **Tailwind CSS** 4, **@tailwindcss/typography**
 - Контент: **gray-matter**, **remark**, **remark-html**
-- Тесты: **Jest**, **@testing-library/react**, jsdom, E2E Playwright
+- Тесты: **Jest**, **@testing-library/react**, **jsdom**, **E2E Playwright**
 
 ## Требования
 
@@ -21,7 +21,7 @@ npm ci
 npm run dev
 ```
 
-Сайт по умолчанию: [http://localhost:3000](http://localhost:3000).
+Локальный сервер: [http://localhost:3000](http://localhost:3000).
 
 Продакшн-сборка и запуск:
 
